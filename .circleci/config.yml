@@ -35,4 +35,5 @@ workflows:
   say-hello-workflow:
     jobs:
       - say-hello
+      - Docker-build
       
