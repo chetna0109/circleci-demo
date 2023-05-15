@@ -17,20 +17,17 @@ jobs:
       - run:
           name: "Say hello"
           command: "echo Hello, World!"
-          jobs:
-  say-CC:
-    # Specify the execution environment. You can specify an image from Docker Hub or use one of our convenience images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/configuration-reference/#executor-job
-    docker:
+    Docker-build:
+            docker:
+      # replace with your preferred image
       - image: cimg/base:stable
-    # Add steps to the job
-    # See: https://circleci.com/docs/configuration-reference/#steps
     steps:
-      - checkout
-      - run:
-          name: "Say CC"
-          command: "echo Hello, $CC World!"
-          
+      - setup_remote_docker:
+        checkout
+      - docker/build:
+          image: flask-app  
+          tag: latest 
+  
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
@@ -38,4 +35,4 @@ workflows:
   say-hello-workflow:
     jobs:
       - say-hello
-      - say-CC
+      
